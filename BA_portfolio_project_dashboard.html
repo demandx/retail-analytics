@@ -1,0 +1,338 @@
+
+<h2 class="sr-only">Business Analyst Associate Portfolio Project — Sales & Customer Analytics Dashboard</h2>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.dash { padding: 1.5rem 0; }
+.section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi { background: var(--surface-1); border-radius: var(--radius); padding: 14px 16px; border: 0.5px solid var(--border); }
+.kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.kpi-value { font-size: 24px; font-weight: 500; color: var(--text-primary); }
+.kpi-delta { font-size: 12px; margin-top: 4px; }
+.pos { color: #0ca30c; } .neg { color: #d03b3b; }
+.charts-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin-bottom: 20px; }
+.chart-card { background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; padding: 16px; }
+.chart-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+.chart-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.full-row { margin-bottom: 20px; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; color: var(--text-secondary); }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+.sql-badge { display: inline-block; background: #e6f1fb; color: #185fa5; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+.xl-badge { display: inline-block; background: #eaf3de; color: #3b6d11; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+.tbl-badge { display: inline-block; background: #eeedfe; color: #3c3489; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+.pbi-badge { display: inline-block; background: #faeeda; color: #854f0b; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+.insight-box { background: var(--bg-accent); border: 0.5px solid var(--border-accent); border-radius: var(--radius); padding: 10px 14px; margin-top: 10px; font-size: 12px; color: var(--text-accent); }
+table.data-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.data-tbl th { text-align: left; padding: 8px 10px; font-weight: 500; font-size: 11px; color: var(--text-muted); border-bottom: 0.5px solid var(--border); }
+table.data-tbl td { padding: 8px 10px; color: var(--text-secondary); border-bottom: 0.5px solid var(--border); }
+table.data-tbl tr:last-child td { border-bottom: none; }
+.bar-mini { height: 6px; border-radius: 3px; background: #e1e0d9; position: relative; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.status-badge { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 12px; }
+.funnel-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.funnel-label { font-size: 12px; color: var(--text-secondary); width: 100px; flex-shrink: 0; }
+.funnel-bar { flex: 1; height: 22px; border-radius: 3px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 500; }
+.funnel-num { font-size: 12px; color: var(--text-muted); width: 50px; text-align: right; flex-shrink: 0; }
+.hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 0.5px solid var(--border); }
+.hdr-title { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+.hdr-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.tab { font-size: 12px; padding: 5px 12px; border-radius: var(--radius); cursor: pointer; border: 0.5px solid var(--border); background: var(--surface-1); color: var(--text-secondary); }
+.tab.active { background: var(--bg-accent); color: var(--text-accent); border-color: var(--border-accent); font-weight: 500; }
+</style>
+
+<div class="dash">
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">Retail Sales & Customer Analytics <span class="tbl-badge">Tableau</span><span class="pbi-badge">Power BI</span></div>
+      <div class="hdr-sub">FY 2024 — Business Analyst Portfolio Project &nbsp;|&nbsp; Tools: SQL · Excel · Tableau · Power BI</div>
+    </div>
+    <div style="font-size:12px; color:var(--text-muted);">Q4 2024 · Updated Dec 31</div>
+  </div>
+
+  <div class="section-label">Key Performance Indicators <span class="sql-badge">SQL Aggregation</span><span class="xl-badge">Excel Pivot</span></div>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-currency-rupee" aria-hidden="true"></i> Total Revenue</div>
+      <div class="kpi-value">₹2.47Cr</div>
+      <div class="kpi-delta pos">▲ 18.3% vs LY</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-users" aria-hidden="true"></i> Active Customers</div>
+      <div class="kpi-value">8,412</div>
+      <div class="kpi-delta pos">▲ 12.1% vs LY</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Avg Order Value</div>
+      <div class="kpi-value">₹2,935</div>
+      <div class="kpi-delta neg">▼ 3.2% vs LY</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-chart-line" aria-hidden="true"></i> Gross Margin</div>
+      <div class="kpi-value">34.7%</div>
+      <div class="kpi-delta pos">▲ 2.1pp vs LY</div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Monthly Revenue & Profit Trend <span class="tbl-badge">Tableau</span></div>
+      <div class="chart-sub">Revenue (bars) vs Gross Profit (line) — FY2024</div>
+      <div class="legend">
+        <span><span class="leg-dot" style="background:#2a78d6;"></span>Revenue</span>
+        <span><span class="leg-dot" style="background:#1baf7a;"></span>Gross Profit</span>
+      </div>
+      <div style="position:relative;height:200px;"><canvas id="revenueChart" role="img" aria-label="Monthly revenue and profit trend bar chart for FY2024">Monthly revenue and gross profit data for 12 months.</canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Revenue by Category <span class="pbi-badge">Power BI</span></div>
+      <div class="chart-sub">Product category contribution, FY2024</div>
+      <div style="position:relative;height:214px;"><canvas id="pieChart" role="img" aria-label="Donut chart showing revenue by product category">Revenue split: Electronics 38%, Apparel 24%, Home 18%, FMCG 12%, Other 8%.</canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Customer Segmentation (RFM) <span class="sql-badge">SQL CASE</span><span class="tbl-badge">Tableau</span></div>
+      <div class="chart-sub">Recency-Frequency-Monetary segmentation of 8,412 customers</div>
+      <div style="position:relative;height:180px;"><canvas id="rfmChart" role="img" aria-label="Horizontal bar chart of RFM customer segments">RFM segments: Champions 1842, Loyal 2105, At Risk 1536, New 1892, Lost 1037.</canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Sales Funnel Conversion <span class="pbi-badge">Power BI</span></div>
+      <div class="chart-sub">Lead-to-purchase pipeline, FY2024</div>
+      <div style="margin-top:8px;">
+        <div class="funnel-row">
+          <div class="funnel-label">Leads</div>
+          <div class="funnel-bar" style="background:#b5d4f4; color:#0c447c; width:100%;">42,300</div>
+          <div class="funnel-num">100%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Prospects</div>
+          <div class="funnel-bar" style="background:#85b7eb; color:#0c447c; width:82%;">34,686</div>
+          <div class="funnel-num">82%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Qualified</div>
+          <div class="funnel-bar" style="background:#378add; color:#fff; width:53%;">22,419</div>
+          <div class="funnel-num">53%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Negotiation</div>
+          <div class="funnel-bar" style="background:#185fa5; color:#fff; width:28%;">11,844</div>
+          <div class="funnel-num">28%</div>
+        </div>
+        <div class="funnel-row">
+          <div class="funnel-label">Closed Won</div>
+          <div class="funnel-bar" style="background:#0c447c; color:#fff; width:20%;">8,412</div>
+          <div class="funnel-num">20%</div>
+        </div>
+      </div>
+      <div class="insight-box"><i class="ti ti-bulb" aria-hidden="true"></i> Prospect→Qualified drop (82%→53%) suggests a qualification bottleneck — recommend CRM filter update.</div>
+    </div>
+  </div>
+
+  <div class="full-row">
+    <div class="chart-card">
+      <div class="chart-title">Cohort Retention Analysis <span class="sql-badge">SQL Window Fn</span><span class="xl-badge">Excel Heatmap</span></div>
+      <div class="chart-sub">% of customers retained by acquisition cohort (Jan–Jun 2024)</div>
+      <div id="heatmap" style="overflow-x:auto; margin-top:4px;"></div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="chart-card">
+      <div class="chart-title">Top 10 Products by Revenue <span class="sql-badge">SQL Rank()</span></div>
+      <div class="chart-sub">Sorted by FY2024 revenue contribution</div>
+      <table class="data-tbl">
+        <thead><tr><th>#</th><th>Product</th><th>Revenue</th><th>Share</th><th>Trend</th></tr></thead>
+        <tbody id="prodTable"></tbody>
+      </table>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Regional Performance <span class="tbl-badge">Tableau Map</span></div>
+      <div class="chart-sub">Revenue by region vs target, FY2024</div>
+      <table class="data-tbl">
+        <thead><tr><th>Region</th><th>Revenue</th><th>vs Target</th><th>Status</th></tr></thead>
+        <tbody id="regionTable"></tbody>
+      </table>
+      <div style="position:relative;height:120px;margin-top:12px;"><canvas id="regionBar" role="img" aria-label="Bar chart of regional revenue performance">Regional revenue comparison chart.</canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-card full-row" style="background:var(--surface-1); border:0.5px solid var(--border); border-radius:12px; padding:16px;">
+    <div class="chart-title" style="margin-bottom:6px;">SQL Query Sample — RFM Segmentation <span class="sql-badge">SQL</span></div>
+    <div class="chart-sub">Core analytical query used for customer segmentation (PostgreSQL)</div>
+    <pre style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);background:var(--surface-0);border:0.5px solid var(--border);border-radius:var(--radius);padding:14px;overflow-x:auto;line-height:1.7;"><span style="color:#185fa5;">WITH</span> rfm_base <span style="color:#185fa5;">AS</span> (
+  <span style="color:#185fa5;">SELECT</span>
+    customer_id,
+    <span style="color:#3b6d11;">DATEDIFF</span>(CURRENT_DATE, MAX(order_date))    <span style="color:#898781;">AS recency_days,</span>
+    <span style="color:#3b6d11;">COUNT</span>(DISTINCT order_id)                  <span style="color:#898781;">AS frequency,</span>
+    <span style="color:#3b6d11;">SUM</span>(order_value)                           <span style="color:#898781;">AS monetary</span>
+  <span style="color:#185fa5;">FROM</span> orders
+  <span style="color:#185fa5;">WHERE</span> order_date >= <span style="color:#854f0b;">'2024-01-01'</span>
+  <span style="color:#185fa5;">GROUP BY</span> customer_id
+),
+rfm_scored <span style="color:#185fa5;">AS</span> (
+  <span style="color:#185fa5;">SELECT</span> *,
+    <span style="color:#3b6d11;">NTILE</span>(5) OVER (<span style="color:#185fa5;">ORDER BY</span> recency_days <span style="color:#185fa5;">DESC</span>) <span style="color:#898781;">AS r_score,</span>
+    <span style="color:#3b6d11;">NTILE</span>(5) OVER (<span style="color:#185fa5;">ORDER BY</span> frequency)          <span style="color:#898781;">AS f_score,</span>
+    <span style="color:#3b6d11;">NTILE</span>(5) OVER (<span style="color:#185fa5;">ORDER BY</span> monetary)           <span style="color:#898781;">AS m_score</span>
+  <span style="color:#185fa5;">FROM</span> rfm_base
+)
+<span style="color:#185fa5;">SELECT</span> customer_id,
+  <span style="color:#185fa5;">CASE</span>
+    <span style="color:#185fa5;">WHEN</span> r_score >= 4 <span style="color:#185fa5;">AND</span> f_score >= 4 <span style="color:#185fa5;">THEN</span> <span style="color:#854f0b;">'Champion'</span>
+    <span style="color:#185fa5;">WHEN</span> f_score >= 3 <span style="color:#185fa5;">AND</span> m_score >= 3 <span style="color:#185fa5;">THEN</span> <span style="color:#854f0b;">'Loyal'</span>
+    <span style="color:#185fa5;">WHEN</span> r_score <= 2 <span style="color:#185fa5;">AND</span> f_score >= 3 <span style="color:#185fa5;">THEN</span> <span style="color:#854f0b;">'At Risk'</span>
+    <span style="color:#185fa5;">WHEN</span> r_score >= 4 <span style="color:#185fa5;">AND</span> f_score <= 2 <span style="color:#185fa5;">THEN</span> <span style="color:#854f0b;">'New Customer'</span>
+    <span style="color:#185fa5;">ELSE</span> <span style="color:#854f0b;">'Lost'</span>
+  <span style="color:#185fa5;">END</span> <span style="color:#898781;">AS segment</span>
+<span style="color:#185fa5;">FROM</span> rfm_scored;</pre>
+  </div>
+
+  <div style="text-align:center; margin-top:8px;">
+    <button onclick="sendPrompt('Can you explain the RFM segmentation methodology and how I would present this analysis to a non-technical business stakeholder?')" style="font-size:13px; padding:8px 20px;">How to present this to stakeholders ↗</button>
+    <button onclick="sendPrompt('Generate sample Excel VLOOKUP and Pivot Table formulas I could use in this retail analytics project')" style="font-size:13px; padding:8px 20px; margin-left:8px;">Excel formulas for this project ↗</button>
+    <button onclick="sendPrompt('What Tableau and Power BI visualizations should I build for this BA portfolio project?')" style="font-size:13px; padding:8px 20px; margin-left:8px;">Tableau & Power BI tips ↗</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const revenue = [14.2,15.8,17.1,19.4,18.7,22.3,21.5,24.8,26.1,23.9,28.4,34.8];
+const profit  = [4.5, 5.1, 5.8, 6.9, 6.2, 8.1, 7.6, 9.2, 9.8, 8.7,10.6,13.1];
+
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      { type:'bar',  label:'Revenue (₹L)', data: revenue, backgroundColor:'#b5d4f4', borderRadius:4, order:2 },
+      { type:'line', label:'Gross Profit (₹L)', data: profit, borderColor:'#1baf7a', backgroundColor:'rgba(27,175,122,0.08)', borderWidth:2, pointRadius:3, pointBackgroundColor:'#1baf7a', fill:true, tension:0.3, order:1 }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      x:{ ticks:{ font:{size:10}, color:'#898781' }, grid:{ display:false } },
+      y:{ ticks:{ font:{size:10}, color:'#898781', callback: v=>'₹'+v+'L' }, grid:{ color:'#e1e0d9', lineWidth:0.5 }, border:{display:false} }
+    }
+  }
+});
+
+new Chart(document.getElementById('pieChart'), {
+  type:'doughnut',
+  data:{
+    labels:['Electronics','Apparel','Home & Living','FMCG','Others'],
+    datasets:[{ data:[38,24,18,12,8], backgroundColor:['#2a78d6','#1baf7a','#eda100','#4a3aa7','#898781'], borderWidth:2, borderColor:'#ffffff', hoverOffset:6 }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{ position:'right', labels:{ font:{size:11}, padding:10, boxWidth:10, color:'#52514e' } } }
+  }
+});
+
+new Chart(document.getElementById('rfmChart'), {
+  type:'bar',
+  data:{
+    labels:['Champions','Loyal','New Customers','At Risk','Lost'],
+    datasets:[{ data:[1842,2105,1892,1536,1037],
+      backgroundColor:['#2a78d6','#1baf7a','#eda100','#e34948','#898781'],
+      borderRadius:4, barThickness:18 }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      x:{ ticks:{ font:{size:10}, color:'#898781' }, grid:{ color:'#e1e0d9', lineWidth:0.5 }, border:{display:false} },
+      y:{ ticks:{ font:{size:11}, color:'#52514e' }, grid:{ display:false } }
+    }
+  }
+});
+
+const products = [
+  ['Samsung Galaxy A55','Electronics','₹18.2L',14.8,'▲'],
+  ['Nike Air Max 2024','Apparel','₹11.7L',9.5,'▲'],
+  ['LG 32" Smart TV','Electronics','₹10.4L',8.4,'▼'],
+  ['Prestige Induction Set','Home','₹8.9L',7.2,'▲'],
+  ['Redmi Note 13','Electronics','₹8.1L',6.5,'▲'],
+  ['Puma Running Shoes','Apparel','₹7.6L',6.2,'▲'],
+  ['Philips Air Fryer','Home','₹6.8L',5.5,'▼'],
+  ['Bosch Vacuum Pro','Home','₹5.9L',4.8,'▲'],
+  ["Levi's 511 Slim Fit",'Apparel','₹5.4L',4.4,'▼'],
+  ['Tata Tea Gold 1kg','FMCG','₹4.7L',3.8,'▲'],
+];
+const tbody = document.getElementById('prodTable');
+products.forEach(([name,cat,rev,share,trend],i)=>{
+  const colors = {Electronics:'#b5d4f4',Apparel:'#9fe1cb',Home:'#fac775',FMCG:'#ced3fc'};
+  tbody.innerHTML += `<tr>
+    <td style="color:var(--text-muted)">${i+1}</td>
+    <td><span style="font-size:11px;">${name}</span><br><span style="font-size:10px;background:${colors[cat]||'#e1e0d9'};padding:1px 6px;border-radius:3px;color:#3d3d3a;">${cat}</span></td>
+    <td style="font-weight:500;">${rev}</td>
+    <td><div class="bar-mini"><div class="bar-fill" style="width:${share*5}%;background:#2a78d6;"></div></div><span style="font-size:10px;color:var(--text-muted)">${share}%</span></td>
+    <td style="color:${trend==='▲'?'#0ca30c':'#d03b3b'}">${trend}</td>
+  </tr>`;
+});
+
+const regions = [
+  ['North (Delhi NCR)','₹68.4L','₹65L','▲ 5.2%','#eaf3de','#27500a'],
+  ['South (Bengaluru+)','₹57.2L','₹60L','▼ 4.7%','#fcebeb','#791f1f'],
+  ['West (Mumbai/Pune)','₹52.1L','₹50L','▲ 4.2%','#eaf3de','#27500a'],
+  ['East (Kolkata)','₹34.6L','₹32L','▲ 8.1%','#eaf3de','#27500a'],
+  ['Central (Hyderabad)','₹28.9L','₹30L','▼ 3.7%','#faeeda','#854f0b'],
+];
+const rtbody = document.getElementById('regionTable');
+regions.forEach(([r,rev,tgt,vs,bg,clr])=>{
+  rtbody.innerHTML += `<tr><td>${r}</td><td style="font-weight:500;">${rev}</td><td style="color:var(--text-muted)">${tgt}</td><td><span class="status-badge" style="background:${bg};color:${clr}">${vs}</span></td></tr>`;
+});
+
+new Chart(document.getElementById('regionBar'), {
+  type:'bar',
+  data:{
+    labels:['North','South','West','East','Central'],
+    datasets:[
+      { label:'Actual', data:[68.4,57.2,52.1,34.6,28.9], backgroundColor:'#2a78d6', borderRadius:4, barPercentage:0.5 },
+      { label:'Target', data:[65,60,50,32,30], backgroundColor:'#e1e0d9', borderRadius:4, barPercentage:0.5 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ font:{size:10}, boxWidth:8, color:'#52514e' } } },
+    scales:{
+      x:{ ticks:{ font:{size:9}, color:'#898781' }, grid:{ display:false } },
+      y:{ ticks:{ font:{size:9}, color:'#898781', callback:v=>'₹'+v+'L' }, grid:{ color:'#e1e0d9', lineWidth:0.5 }, border:{display:false} }
+    }
+  }
+});
+
+const cohortData = [
+  ['Jan-24',[100,74,62,51,44,38,32,28,24,21,19,17]],
+  ['Feb-24',[100,71,58,49,41,35,30,26,22,19,17,null]],
+  ['Mar-24',[100,76,64,54,46,40,34,29,25,22,null,null]],
+  ['Apr-24',[100,73,61,52,44,37,31,27,23,null,null,null]],
+  ['May-24',[100,78,66,56,47,41,35,30,null,null,null,null]],
+  ['Jun-24',[100,75,63,53,45,39,33,null,null,null,null,null]],
+];
+const heatDiv = document.getElementById('heatmap');
+let html = `<table style="border-collapse:collapse;font-size:11px;width:100%;"><thead><tr><th style="padding:4px 8px;text-align:left;color:var(--text-muted);font-weight:500;">Cohort</th>`;
+for(let m=0;m<=11;m++) html+=`<th style="padding:4px 6px;text-align:center;color:var(--text-muted);font-weight:500;">M${m}</th>`;
+html+='</tr></thead><tbody>';
+cohortData.forEach(([cohort,vals])=>{
+  html+=`<tr><td style="padding:4px 8px;color:var(--text-secondary);font-weight:500;">${cohort}</td>`;
+  vals.forEach(v=>{
+    if(v===null){ html+=`<td style="padding:4px 6px;"></td>`; return; }
+    const alpha = Math.round(v/100*200);
+    const bg = v>=70?'#2a78d6':v>=50?'#378add':v>=35?'#85b7eb':v>=25?'#b5d4f4':'#e6f1fb';
+    const fg = v>=50?'#fff':'#0c447c';
+    html+=`<td style="padding:4px 6px;text-align:center;background:${bg};color:${fg};border-radius:3px;font-weight:500;">${v}%</td>`;
+  });
+  html+='</tr>';
+});
+html+='</tbody></table>';
+heatDiv.innerHTML = html;
+</script>
